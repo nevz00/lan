@@ -6,12 +6,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
-        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u WHERE u.email=?1"),
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.email"),
+        @NamedQuery(name = User.BY_EMAIL, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.email"),
 })
 
 @Entity
@@ -60,16 +61,22 @@ public class User extends AbstractNameEntity {
     @NotNull
     private LocalDate date;
 
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
 
     public User(){
     }
 
     public User(User u){
-        this(u.getId(),u.getFirstName(),u.getLastName(),u.getPosition(),u.getTelephoneInner(),u.getMobilePhone(),u.getPassword(),u.getEmail(),u.getAutoNumber(),u.getDate());
+        this(u.getId(),u.getFirstName(),u.getLastName(),u.getPosition(),u.getTelephoneInner(),u.getMobilePhone(),u.getPassword(),u.getEmail(),u.getAutoNumber(),u.getDate(), u.getRoles());
 
     }
 
-    public User(Integer id, String firstName, String lastName, String position, String telephoneInner, String mobilePhone, String password, String email, String autoNumber, LocalDate date) {
+    public User(Integer id, String firstName, String lastName, String position, String telephoneInner, String mobilePhone, String password, String email, String autoNumber, LocalDate date, Set<Role> roles) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -80,6 +87,7 @@ public class User extends AbstractNameEntity {
         this.email = email;
         this.autoNumber = autoNumber;
         this.date = date;
+        this.roles=roles;
     }
 
     public String getFirstName() {
@@ -154,6 +162,10 @@ public class User extends AbstractNameEntity {
         this.date = date;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -166,7 +178,8 @@ public class User extends AbstractNameEntity {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", autoNumber='" + autoNumber + '\'' +
-                ", date=" + date +
+                ", date=" + date + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
