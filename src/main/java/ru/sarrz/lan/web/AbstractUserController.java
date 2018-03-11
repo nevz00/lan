@@ -1,15 +1,25 @@
 package ru.sarrz.lan.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.sarrz.lan.model.User;
 import ru.sarrz.lan.service.UserService;
 
 import java.util.List;
 
-public abstract class AbstractUserController {
+import static ru.sarrz.lan.util.ValidationUtil.assureIdConsistent;
+import static ru.sarrz.lan.util.ValidationUtil.checkNew;
 
+@Controller
+public class AbstractUserController {
+
+
+    private final UserService service;
     @Autowired
-    private UserService service;
+    public AbstractUserController(UserService service) {
+        this.service=service;
+
+    }
 
     public List<User> getAll() {
         return service.getAll();
@@ -20,7 +30,7 @@ public abstract class AbstractUserController {
     }
 
     public User create(User user) {
-        //checkNew(user);
+        checkNew(user);
         return service.create(user);
     }
 
@@ -29,7 +39,7 @@ public abstract class AbstractUserController {
     }
 
     public void update(User user, int id) {
-        //assureIdConsistent(user, id);
+        assureIdConsistent(user, id);
         service.update(user);
     }
 

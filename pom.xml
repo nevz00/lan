@@ -6,6 +6,8 @@
 
     <groupId>ru.sarrz</groupId>
     <artifactId>lan</artifactId>
+    <packaging>war</packaging>
+
     <version>1.0-SNAPSHOT</version>
 
     <name>Lan</name>
@@ -23,6 +25,7 @@
 
         <!--DB-->
         <mysql.version>5.1.45</mysql.version>
+        <postgresql.version>42.1.4</postgresql.version>
         <!--    Tests  -->
         <junit.version>4.12</junit.version>
 
@@ -111,7 +114,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
 
 
         <!--- ORM -->

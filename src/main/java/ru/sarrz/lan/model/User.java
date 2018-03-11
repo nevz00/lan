@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.EnumSet;
 import java.util.Set;
 
 
@@ -33,33 +34,11 @@ public class User extends AbstractNameEntity {
     @NotBlank
     private String lastName;
 
-    @Column(name = "position",nullable = false)
-    @NotBlank
-    private String position;
-
-    @NotBlank
-    @Column(name = "telephoneInner",nullable = false)
-    private String telephoneInner;
-
-    @Column(name = "mobilePhone",nullable = false)
-    private String mobilePhone;
-
-    @Column(name = "password",nullable = false)
-    @NotBlank
-    private String password;
-
-    @Column(name = "email",nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
     @Size(max = 100)
     private String email;
-
-    @Column(name = "autoNumber")
-    private String autoNumber;
-
-    @Column(name = "firstName",nullable = false)
-    @NotNull
-    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -67,27 +46,19 @@ public class User extends AbstractNameEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-
-    public User(){
+    public User() {
     }
-
-    public User(User u){
-        this(u.getId(),u.getFirstName(),u.getLastName(),u.getPosition(),u.getTelephoneInner(),u.getMobilePhone(),u.getPassword(),u.getEmail(),u.getAutoNumber(),u.getDate(), u.getRoles());
-
+    public User(User u) {
+        this(u.getId(),u.getFirstName(),u.getLastName(),u.getEmail());
     }
-
-    public User(Integer id, String firstName, String lastName, String position, String telephoneInner, String mobilePhone, String password, String email, String autoNumber, LocalDate date, Set<Role> roles) {
+    public User(String firstName, String lastName, String email) {
+        this(null,firstName,lastName,email);
+    }
+    public User(Integer id, String firstName, String lastName, String email){
         super(id);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.position = position;
-        this.telephoneInner = telephoneInner;
-        this.mobilePhone = mobilePhone;
-        this.password=password;
-        this.email = email;
-        this.autoNumber = autoNumber;
-        this.date = date;
-        this.roles=roles;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.email=email;
     }
 
     public String getFirstName() {
@@ -106,60 +77,12 @@ public class User extends AbstractNameEntity {
         this.lastName = lastName;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getTelephoneInner() {
-        return telephoneInner;
-    }
-
-    public void setTelephoneInner(String telephoneInner) {
-        this.telephoneInner = telephoneInner;
-    }
-
-    public String getMobilePhone() {
-        return mobilePhone;
-    }
-
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAutoNumber() {
-        return autoNumber;
-    }
-
-    public void setAutoNumber(String autoNumber) {
-        this.autoNumber = autoNumber;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public Set<Role> getRoles() {
@@ -172,13 +95,7 @@ public class User extends AbstractNameEntity {
                 "id=" + id +'\''+
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", position='" + position + '\'' +
-                ", telephoneInner='" + telephoneInner + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", autoNumber='" + autoNumber + '\'' +
-                ", date=" + date + '\'' +
                 ", roles=" + roles +
                 '}';
     }
