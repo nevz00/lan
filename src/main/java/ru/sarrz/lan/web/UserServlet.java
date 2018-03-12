@@ -34,7 +34,9 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
+
         String action = req.getParameter("action");
+
         if (action == null) {
             User user = new User(
                     req.getParameter("firstName"),
@@ -46,6 +48,10 @@ public class UserServlet extends HttpServlet {
                 userController.update(user, getId(req));
             }
             resp.sendRedirect("users");
+        } else if ("email".equals(action)){
+            String email = req.getParameter("email");
+            req.setAttribute("users",userController.getByMail(email));
+            req.getRequestDispatcher("/users.jsp").forward(req,resp);
         }
     }
 

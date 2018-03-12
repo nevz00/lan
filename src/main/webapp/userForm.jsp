@@ -21,7 +21,7 @@
         </dl>
         <dl>
             <dt>Email</dt>
-            <dd><input type="text" value="${user.email}" name="email" required></dd>
+            <dd><input type="email" value="${user.email}" name="email" required></dd>
         </dl>
         <button type="submit">Save</button>
         <button onclick="window.history.back()" type="button">Cancel</button>
