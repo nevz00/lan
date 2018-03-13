@@ -2,20 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
+<jsp:include page="fragments/headTag.jsp"/>
 <body>
 <hr/>
 <a href="users?action=create">Add Meal</a>
 <hr/>
-<form method="post" action="users?action=email">
-<dl>
-    <dt>Find by email</dt>
-    <dd><input type="text" name="email" value="${param.email}"></dd>
-</dl>
-<button type="submit">Search</button>
-</form>
+<%--<form method="post" action="users?action=email">--%>
+<%--<dl>--%>
+    <%--<dt>Find by email</dt>--%>
+    <%--<dd><input type="text" name="email" value="${param.email}"></dd>--%>
+<%--</dl>--%>
+<%--<button type="submit">Search</button>--%>
+<%--</form>--%>
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>

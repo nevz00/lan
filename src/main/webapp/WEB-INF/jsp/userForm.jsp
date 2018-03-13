@@ -5,7 +5,7 @@
     <title>UserForm</title>
 </head>
 <body>
-    <h3><a href="index.html">Home</a></h3>
+    <h3><a href="../../index.html">Home</a></h3>
     <h2>${param.action == 'create' ? 'Create user' : 'Edit user'}</h2>
     <hr>
     <jsp:useBean id="user" type="ru.sarrz.lan.model.User" scope="request"/>
