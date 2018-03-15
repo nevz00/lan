@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<hr/>
-<a href="users?action=create">Add Meal</a>
-<hr/>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+
+<a href="users/create"><spring:message code="user.add"/></a>
 <%--<form method="post" action="users?action=email">--%>
 <%--<dl>--%>
     <%--<dt>Find by email</dt>--%>
@@ -17,9 +18,9 @@
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>
-        <th>FirstName</th>
-        <th>LastName</th>
-        <th>Email</th>
+        <th><spring:message code="user.firstName"/></th>
+        <th><spring:message code="user.lastName"/></th>
+        <th><spring:message code="user.email"/></th>
         <th></th>
         <th></th>
     </tr>
@@ -36,10 +37,11 @@
                     <%--&lt;%&ndash;${fn:replace(meal.dateTime, 'T', ' ')}&ndash;%&gt;--%>
                     <%--&lt;%&ndash;${fn:formatDateTime(meal.dateTime)}&ndash;%&gt;--%>
             <%--</td>--%>
-            <td><a href="users?action=update&id=${user.id}">Update</a></td>
-            <td><a href="users?action=delete&id=${user.id}">Delete</a></td>
+            <td><a href="users/update?id=${user.id}"><spring:message code="common.update"/></a></td>
+            <td><a href="users/delete?id=${user.id}"><spring:message code="common.delete"/></a></td>
         </tr>
     </c:forEach>
 </table>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
