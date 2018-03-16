@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class UserServlet extends HttpServlet {
 
-    private ConfigurableApplicationContext springContext;
+   /* private ConfigurableApplicationContext springContext;
     private AbstractUserController userController;
 
     @Override
@@ -84,5 +84,5 @@ public class UserServlet extends HttpServlet {
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.parseInt(paramId);
-    }
+    }*/
 }

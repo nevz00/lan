@@ -1,61 +1,60 @@
 package ru.sarrz.lan.web;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.sarrz.lan.model.User;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
-@Controller
-@RequestMapping(value = "/users")
+@RestController
+@RequestMapping(AdminRestController.REST_URL)
 public class AdminRestController extends AbstractUserController{
-//    static final String REST_URL="/rest/admin/users";
+    static final String REST_URL="/rest/admin/users";
 
-
-    @GetMapping("/create")
-    public String create(Model model) {
-        model.addAttribute("user", new User("","","111@sss.ru"));
-        return "userForm";
+    @Override
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable("id") int id) {
+        super.delete(id);
     }
 
-    @GetMapping("/delete")
-    public String delete(HttpServletRequest request) {
-        super.delete(getId(request));
-        return "redirect:/users";
+    @Override
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody User user, @PathVariable("id") int id) {
+        super.update(user,id);
     }
 
-    @GetMapping("/update")
-    public String update(HttpServletRequest request, Model model) {
-        model.addAttribute("user", super.get(getId(request)));
-        return "userForm";
+    @Override
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User get(@PathVariable("id") int id) {
+        return super.get(id);
     }
 
     @PostMapping
-    public String updateOrCreate(HttpServletRequest request) {
-        User user = new User(request.getParameter("firstName")
-        ,request.getParameter("lastName")
-        ,request.getParameter("email"));
-
-        if (request.getParameter("id").isEmpty()) {
-            super.create(user);
-        } else {
-            super.update(user, getId(request));
-        }
-        return "redirect:/users";
+    public ResponseEntity<User> createWithLocation(@RequestBody User user){
+        User created= super.create(user);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL+"/{id}")
+                .buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    //@Override
-//    @GetMapping(value = "/by",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public User getByMail(/*@RequestParam("email")*/ String email) {
-//        return super.getByMail(email);
-//    }
-
-    private int getId(HttpServletRequest request) {
-        String paramId = Objects.requireNonNull(request.getParameter("id"));
-        return Integer.valueOf(paramId);
+    @Override
+    @GetMapping(value = "/by",produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getByMail(@RequestParam("email") String email) {
+        return super.getByMail(email);
     }
+
 }
