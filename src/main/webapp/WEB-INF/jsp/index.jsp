@@ -6,10 +6,13 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
-</form>
+<div class="jumbotron">
+    <div class="container">
 <ul>
     <li><a href="users"><spring:message code="user.title"/></a></li>
 </ul>
+    </div>
+</div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
