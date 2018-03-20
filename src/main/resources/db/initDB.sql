@@ -8,7 +8,8 @@ CREATE TABLE users
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   firstName             VARCHAR(100)                 NOT NULL,
   lastName             VARCHAR(100)                 NOT NULL,
-  email            VARCHAR(100)                 NOT NULL
+  email            VARCHAR(100)                 NOT NULL,
+  password         VARCHAR                 NOT NULL
 
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);

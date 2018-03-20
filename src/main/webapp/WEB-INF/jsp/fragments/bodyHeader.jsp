@@ -1,26 +1,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
+        <a href="/" class="navbar-brand"><spring:message code="app.title"/></a>
+
+        <div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right">
                 <a class="btn btn-info" href="users"><spring:message code="user.title"/></a>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+
+                <a class="btn btn-primary" href="">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                </a>
             </form>
-        </div><!--/.nav-collapse -->
+        </div>
     </div>
-</nav>
+</div>
