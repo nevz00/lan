@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="resources/css/style.css">
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/datatables/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="webjars/noty/3.1.0/lib/noty.css"/>
     <link rel="shortcut icon" href="resources/images/favicon.ico">
 
     <!--http://stackoverflow.com/a/24070373/548473-->

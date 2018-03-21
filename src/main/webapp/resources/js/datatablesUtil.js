@@ -1,8 +1,8 @@
 var form;
 
 function makeEditable() {
-    form=$('#datailsForm');
-    $(document).ajaxError(function (event, jqXHR, option, jsExc) {
+    form = $('#detailsForm');
+    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(jqXHR);
     });
 
@@ -17,11 +17,11 @@ function add() {
 
 function deleteRow(id) {
     $.ajax({
-        url: ajaxUrl +id,
+        url: ajaxUrl + id,
         type: "DELETE"
     }).done(function () {
         updateTable();
-        successNoty("Delete");
+        successNoty("Deleted");
     });
 }
 
@@ -33,7 +33,7 @@ function save() {
     $.ajax({
         type: "POST",
         url: ajaxUrl,
-        date: form.serialize()
+        data: form.serialize()
     }).done(function () {
         $("#editRow").modal("hide");
         updateTable();
@@ -44,7 +44,7 @@ function save() {
 var failedNote;
 
 function closeNoty() {
-    if (failedNote){
+    if (failedNote) {
         failedNote.close();
         failedNote = undefined;
     }
@@ -58,7 +58,6 @@ function successNoty(text) {
         layout: "bottomRight",
         timeout: 1000
     }).show();
-
 }
 
 function failNoty(jqXHR) {

@@ -2,14 +2,14 @@ var ajaxUrl = "ajax/admin/users/";
 var datatableApi;
 
 function updateTable() {
-    $.get(ajaxUrl, updateTableByData());
+    $.get(ajaxUrl, updateTableByData);
 }
 
 function enable(chkbox, id) {
     var enabled = chkbox.is(":checked");
-
+//  https://stackoverflow.com/a/22213543/548473
     $.ajax({
-        url: ajaxUrl+id,
+        url: ajaxUrl + id,
         type: "POST",
         data: "enabled=" + enabled
     }).done(function () {
@@ -20,6 +20,7 @@ function enable(chkbox, id) {
     });
 }
 
+// $(document).ready(function () {
 $(function () {
     datatableApi = $("#datatable").DataTable({
         "paging": false,
@@ -47,10 +48,11 @@ $(function () {
             }
         ],
         "order": [
-            [0,
-            "asc"
-                ]
+            [
+                0,
+                "asc"
+            ]
         ]
     });
     makeEditable();
-})
+});
