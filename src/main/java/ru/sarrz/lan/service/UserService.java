@@ -1,6 +1,7 @@
 package ru.sarrz.lan.service;
 
 import ru.sarrz.lan.model.User;
+import ru.sarrz.lan.to.UserTo;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface UserService {
     User getByEmail(String email);
 
     void update(User user);
+
+    void update(UserTo user);
 
     List<User> getAll();
 }

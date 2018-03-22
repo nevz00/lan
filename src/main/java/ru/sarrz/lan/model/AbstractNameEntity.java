@@ -1,11 +1,13 @@
 package ru.sarrz.lan.model;
 
+import ru.sarrz.lan.HasId;
+
 import javax.persistence.*;
 
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class AbstractNameEntity {
+public abstract class AbstractNameEntity implements HasId {
     public static final int START_SEQ = 100000;
 
     @Id

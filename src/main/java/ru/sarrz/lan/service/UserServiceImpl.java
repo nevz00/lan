@@ -1,10 +1,15 @@
 package ru.sarrz.lan.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.sarrz.lan.dao.UserRepository;
 import ru.sarrz.lan.model.User;
+import ru.sarrz.lan.to.UserTo;
+import ru.sarrz.lan.util.UserUtil;
 
 import java.util.List;
 
@@ -21,12 +26,14 @@ public class UserServiceImpl implements UserService {
         this.userRepository=userRepository;
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     public User create(User user) {
         Assert.notNull(user,"user must not be null");
         return userRepository.save(user);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void delete(int id) {
         checkNotFoundWithId(userRepository.delete(id),id);
@@ -43,6 +50,7 @@ public class UserServiceImpl implements UserService {
         return checkNotFound(userRepository.getByEmail(email),"email="+ email);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     @Override
     public void update(User user) {
         Assert.notNull(user,"user must not be null");
@@ -50,6 +58,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    @Transactional
+    public void update(UserTo userTo) {
+        User user = get(userTo.getId());
+        userRepository.save(UserUtil.updateFromTo(user,userTo));
+    }
+
+    @Cacheable("users")
     @Override
     public List<User> getAll() {
         return userRepository.getAll();
