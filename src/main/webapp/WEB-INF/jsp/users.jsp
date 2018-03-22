@@ -32,23 +32,6 @@
         <th></th>
     </tr>
     </thead>
-    <c:forEach items="${users}" var="user">
-        <jsp:useBean id="user" scope="page" type="ru.sarrz.lan.model.User"/>
-        <tr>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.roles}</td>
-            <td><a href="mailto:${user.email}">${user.email}</a></td>
-            <%--<td>--%>
-                    <%--&lt;%&ndash;${user.date}&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;<%=TimeUtil.toString(meal.getDateTime())%>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;${fn:replace(meal.dateTime, 'T', ' ')}&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;${fn:formatDateTime(meal.dateTime)}&ndash;%&gt;--%>
-            <%--</td>--%>
-            <td><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-            <td><a onclick="deleteRow(${user.id})"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-            </tr>
-        </c:forEach>
     </table>
     </div>
 </div>
@@ -58,7 +41,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"><spring:message code="user.add"/></h2>
+                <h2 class="modal-title" id="modalTitle"></h2>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="detailsForm">
@@ -111,4 +94,9 @@
 
 <jsp:include page="fragments/footer.jsp"/>
 </body>
+<jsp:include page="fragments/i18n.jsp"/>
+<script type="text/javascript">
+    i18n["addTitle"] = '<spring:message code="user.add"/>';
+    i18n["editTitle"] = '<spring:message code="user.edit"/>';
+</script>
 </html>

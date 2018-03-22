@@ -16,13 +16,16 @@ public class RootController {
 
     @GetMapping("/")
     public String root() {
-        return "index";
+        return "login";
     }
 
     @GetMapping("/users")
-    public String users(Model model) {
-        model.addAttribute("users", userService.getAll());
+    public String users() {
         return "users";
+    }
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
     }
 
 //    @PostMapping("/users")

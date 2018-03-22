@@ -14,7 +14,7 @@ function enable(chkbox, id) {
         data: "enabled=" + enabled
     }).done(function () {
         chkbox.closest("tr").toggleClass("disabled");
-        successNoty(enabled ? "Enabled" : "Disabled");
+        successNoty(enabled ? "common.enabled" : "common.disabled");
     }).fail(function () {
         $(chkbox).prop("checked", !enabled);
     });
@@ -23,6 +23,10 @@ function enable(chkbox, id) {
 // $(document).ready(function () {
 $(function () {
     datatableApi = $("#datatable").DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
         "paging": false,
         "info": true,
         "columns": [
@@ -36,15 +40,23 @@ $(function () {
                 "data": "roles"
             },
             {
-                "data": "email"
+                "data": "email",
+                "render": function (data, type, row) {
+                    if (type === "display"){
+                        return "<a href='mailto:" + data + "'>" + data + "</a>";
+                    }
+                    return data;
+                }
             },
             {
-                "defaultContent": "Edit",
-                "orderable": false
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderEditBtn
             },
             {
-                "defaultContent": "Delete",
-                "orderable": false
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderDeleteBtn
             }
         ],
         "order": [
@@ -52,7 +64,12 @@ $(function () {
                 0,
                 "asc"
             ]
-        ]
+        ],
+        "createdRow": function (row, data, dataIndex) {
+            if (!data.enabled) {
+                $(row).addClass("disabled");
+            }
+        },
+        "initComplete": makeEditable
     });
-    makeEditable();
 });
