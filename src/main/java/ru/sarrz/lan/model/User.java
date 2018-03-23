@@ -49,6 +49,9 @@ public class User extends AbstractNameEntity {
     @Size(min = 5, max = 64)
     private String password;
 
+    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
+    private boolean enabled = true;
+
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -58,17 +61,18 @@ public class User extends AbstractNameEntity {
     public User() {
     }
     public User(User u) {
-        this(u.getId(),u.getFirstName(),u.getLastName(),u.getEmail(), u.getPassword(), u.getRoles());
+        this(u.getId(),u.getFirstName(),u.getLastName(),u.getEmail(), u.getPassword(),u.isEnabled(), u.getRoles());
     }
     public User(Integer id, String firstName, String lastName, String email, String password,Role role, Role... roles) {
-        this(id,firstName,lastName,email, password, EnumSet.of(role, roles));
+        this(id,firstName,lastName,email, password,true, EnumSet.of(role, roles));
     }
-    public User(Integer id, String firstName, String lastName, String email, String password,Collection<Role> roles){
+    public User(Integer id, String firstName, String lastName, String email, String password,boolean enabled, Collection<Role> roles){
         super(id);
         this.firstName=firstName;
         this.lastName=lastName;
         this.email=email;
         this.password=password;
+        this.enabled=enabled;
         setRoles(roles);
     }
 
@@ -104,6 +108,14 @@ public class User extends AbstractNameEntity {
         this.password = password;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
@@ -119,6 +131,7 @@ public class User extends AbstractNameEntity {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", enabled=" + enabled +
                 ", roles=" + roles +
                 '}';
     }

@@ -49,6 +49,15 @@ $(function () {
                 }
             },
             {
+                "data": "enabled",
+                "render": function (data, type, row) {
+                    if (type === "display"){
+                        return "<input type='checkbox' " + (data ? "checked" : "") + " onclick='enable($(this)," + row.id + ");'/>";
+                    }
+                    return data;
+                }
+            },
+            {
                 "orderable": false,
                 "defaultContent": "",
                 "render": renderEditBtn

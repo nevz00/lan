@@ -76,6 +76,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.getAll();
     }
 
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        User user = get(id);
+        user.setEnabled(enabled);
+        userRepository.save(user);
+    }
+
     @Override
     public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.getByEmail(email.toLowerCase());
