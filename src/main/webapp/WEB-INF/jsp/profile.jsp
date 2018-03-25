@@ -12,22 +12,22 @@
 <div class="jumbotron">
     <div class="container">
         <%--@elvariable id="userTo" type="ru.javawebinar.topjava.to.UserTo"--%>
-        <h2>${userTo.firstName} <spring:message code="${register ? 'app.register' : 'app.profile'}"/></h2>
+        <h2>${userTo.firstName} <spring:message code="app.profile"/></h2>
 
-        <form:form modelAttribute="userTo" class="form-horizontal" method="post" action="${register ? 'register' : 'profile'}"
+        <form:form modelAttribute="userTo" class="form-horizontal" method="post" action="profile"
                    charset="utf-8" accept-charset="UTF-8">
 
             <spring:message code="user.firstName" var="userFirstName"/>
-            <topjava:inputField label='${userFirstName}' name="firstName"/>
+            <topjava:inputField label='${userFirstName}' firstName="firstName"/>
 
             <spring:message code="user.firstName" var="userLastName"/>
-            <topjava:inputField label='${userLastName}' name="lastName"/>
+            <topjava:inputField label='${userLastName}' firstName="lastName"/>
 
             <spring:message code="user.email" var="userEmail"/>
-            <topjava:inputField label='${userEmail}' name="email"/>
+            <topjava:inputField label='${userEmail}' firstName="email"/>
 
             <spring:message code="user.password" var="userPassword"/>
-            <topjava:inputField label='${userPassword}' name="password" inputType="password"/>
+            <topjava:inputField label='${userPassword}' firstName="password" inputType="password"/>
 
 
             <div class="form-group">
