@@ -1,4 +1,4 @@
-package ru.sarrz.lan.dao;
+package ru.sarrz.lan.repository;
 
 import ru.sarrz.lan.model.User;
 

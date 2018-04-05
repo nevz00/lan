@@ -20,7 +20,7 @@
             <spring:message code="user.firstName" var="userFirstName"/>
             <topjava:inputField label='${userFirstName}' firstName="firstName"/>
 
-            <spring:message code="user.firstName" var="userLastName"/>
+            <spring:message code="user.lastName" var="userLastName"/>
             <topjava:inputField label='${userLastName}' firstName="lastName"/>
 
             <spring:message code="user.email" var="userEmail"/>

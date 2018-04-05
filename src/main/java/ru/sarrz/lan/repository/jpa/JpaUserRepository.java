@@ -1,9 +1,10 @@
-package ru.sarrz.lan.dao;
+package ru.sarrz.lan.repository.jpa;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sarrz.lan.model.User;
+import ru.sarrz.lan.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
